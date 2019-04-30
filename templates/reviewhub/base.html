@@ -1,0 +1,92 @@
+{% load static %}
+<html>
+    <head>
+        <title>Review Hub Web</title>
+		  <meta charset="utf-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		  
+		 <!-- ALL css files -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!-- bootstrap css -->
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'> <!-- lobstar font -->
+        <link rel="stylesheet" href="{% static 'css/addons/datatables.min.css' %}"> <!-- Datatable css -->
+		 <!-- All css -->
+		 
+		 <!-- All js files -->
+		<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script> <!-- jquery js -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> <!-- bootstrap js -->
+		<script src="{% static 'js/addons/datatables.min.js' %}"></script> <!-- Datatable js -->
+		<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script> <!-- Modal form js -->
+		<!-- All js -->
+		
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<!-- End Date Picker -->
+		
+		<script type="text/javascript">
+
+			  $(function() {
+				$(".datepicker").datepicker({
+				  changeMonth: true,
+				  changeYear: true,
+				  yearRange: "1900:2050",
+				  //more options here.
+				});
+			  });
+		</script>
+		
+    </head>
+    <body>
+        <div class="page-header">
+            <h1><a href="{% url 'reviewhub:index' %}">Review Hub</a></h1>
+        </div>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+     <!-- <a class="navbar-brand" href="#">WebSiteName</a>
+	  	-->
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+    </div>
+
+  <div class="collapse navbar-collapse" id="myNavbar">
+	<ul class="nav navbar-nav">
+	 <li class="active"><a href="{% url 'reviewhub:countryList' %}"> Country </a></li>
+	 <li><a href="{% url 'reviewhub:userList' %}"> User </a></li>
+	 <li><a href="/reviewhub/users/?t=CLIENT">Clients </a></li>
+	 <li><a href="/reviewhub/users/?t=FRELANCERS">Freelancers</a></li>
+	 <li><a href="{% url 'reviewhub:projectList' %}"> Projects </a>
+   </ul>
+
+   <ul class="nav navbar-nav navbar-right">
+      <li><a href="{% url 'reviewhub:signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+	   {% if user.is_authenticated %}
+		 <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li> 
+         <!--<li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>	-->	 
+	   {% else %}
+		 <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+		 <!--<li><a href="/accounts/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
+	   {% endif %} 
+      
+   </ul>
+   </div>
+   
+  </div>
+</nav>
+
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                  {% block content %}
+				  {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

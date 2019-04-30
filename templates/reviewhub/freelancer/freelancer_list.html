@@ -1,0 +1,21 @@
+{% extends 'reviewhub/base.html' %}
+
+{% block content %}
+<a href="{% url 'reviewhub:freelancerCreate'%}">Create Freelancer</a>
+
+{% if freelancerlistinfo %}
+    <ul>
+    {% for f in freelancerlistinfo %}
+		<li>
+		   {{ f.freelancer_name }}
+		   {{f.country.country_name}}
+		   <a href="{% url 'reviewhub:freelancerUpdate' f.id %}"> edit </a>
+		   <a href="{% url 'reviewhub:freelancerDelete' f.id %}"> delete </a>
+		</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No freelancers are available.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'reviewhub/base.html' %}
+
+{% block extra_js%}
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<a href="{% url 'reviewhub:projectCreate'%}">Create Project</a>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h3>Project list:</h3>
+{% if projectlistinfo %}
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+	  <th class="th-sm">Project ID</th>
+	  <th class="th-sm">Project Name</th>
+      <th class="th-sm">Client</th>
+	  <th class="th-sm">Project Completion Date</th>
+	  <th class="th-sm">Project Completed By</th>
+	  <th class="th-sm">Comments</th>
+	  <th class="th-sm">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+	 {% for p in projectlistinfo %}
+	  <tr>
+		<td>{{p.id}}</td>
+		<td>{{ p.project_name }}</td>
+		<td><a href="{% url 'reviewhub:userDetailView' p.client.id %}">{{ p.client.full_name }}</a></td>
+		<td>{{p.completion_date}}</td>
+		<td><a href="{% url 'reviewhub:userDetailView' p.freelance.id %}">{{p.freelance.full_name}}</a></td> 
+		<td>{{p.comments}}</td> 
+		<td>
+		   <button type="button" class="create-pd btn btn-sm btn-primary" data-id="{% url 'reviewhub:projectDetailUpdate' p.pk %}">
+           <span class="fa fa-pencil">Enter Project Detail</span>
+		   </button>
+		   
+		   <a href="{% url 'reviewhub:projectDetailView' p.pk %}">view project detail</a>
+		</td>
+	 </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+    <p>No projects are available.</p>
+{% endif %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+  
+  $(".create-pd").each(function () {
+      $(this).modalForm({formURL: $(this).data('id')});
+    });
+
+});
+</script>
+
+{% endblock %}

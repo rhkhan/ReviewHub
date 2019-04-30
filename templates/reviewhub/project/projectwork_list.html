@@ -1,0 +1,32 @@
+{% extends 'reviewhub/base.html' %}
+
+
+{% block content %}
+
+
+<h3>Project list:</h3>
+{% if projectlistinfo %}
+    <ul>
+    {% for p in projectlistinfo %}
+		<li>
+		   {{ p.project_name }}
+		   {{p.client.full_name}}
+		   {{p.completion_date}}
+		   {{p.freelance.full_name}}
+		   {{p.comments}}
+		   {{p.id}}
+		   <!--<a class="fa fa-pencil create-pd" data-toggle="modal" href="{% url 'reviewhub:projectDetailUpdate' p.id %}" data-target="#modal" title="update project detail" data-tooltip>
+		    Enter project details
+		   </a>-->
+		    <button type="button" class="create-pd btn btn-sm btn-primary" data-id="{% url 'reviewhub:projectDetailUpdate' p.pk %}">
+        <span class="fa fa-pencil">Project Detail</span>
+      </button>
+		</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Projects are available.</p>
+{% endif %}
+
+
+{% endblock %}

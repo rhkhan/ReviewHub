@@ -1,0 +1,9 @@
+ {% extends 'reviewhub/base.html' %}
+  
+  {% block content %}
+  <form method="post">
+  {% csrf_token %}
+   Are you sure you want to delete "{{ object }}" ?
+   <input class="btn btn-primary" type="submit" value="Submit" />
+   </form>
+  {% endblock %}

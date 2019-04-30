@@ -1,0 +1,10 @@
+
+{% extends 'reviewhub/base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+{% endif %}
+This is the REVIEW HUB home page............
+{% endblock %}

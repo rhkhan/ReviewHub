@@ -1,0 +1,11 @@
+{% extends 'reviewhub/base.html' %}
+
+{% block content %}
+
+<form method="POST" id="freelancerForm" novalidate>
+	{% csrf_token %}
+	{{form.as_table}}
+    <input class="btn btn-primary" type="submit" value="Submit" />
+</form>
+
+{% endblock %}
